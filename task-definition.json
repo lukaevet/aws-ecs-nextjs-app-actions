@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
             "name": "deployment-nextjs-container",
-            "image": "public.ecr.aws/nginx/nginx:perl",
+            "image": "614007627891.dkr.ecr.eu-central-1.amazonaws.com/nextjs-application:latest",
             "cpu": 0,
             "links": [],
             "portMappings": [
