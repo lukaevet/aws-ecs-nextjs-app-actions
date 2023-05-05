@@ -52,3 +52,4 @@ jobs:
         service: deployment-example-service
         cluster: deployment-example-cluster
         wait-for-service-stability: true
+        
