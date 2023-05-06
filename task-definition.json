@@ -1,9 +1,9 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:eu-central-1:614007627891:task-definition/deployment-example-task:7",
+    "taskDefinitionArn": "arn:aws:ecs:eu-central-1:#change this#:task-definition/deployment-example-task:7",
     "containerDefinitions": [
         {
             "name": "deployment-nextjs-container",
-            "image": "614007627891.dkr.ecr.eu-central-1.amazonaws.com/nextjs-application:latest",
+            "image": "#change this#.dkr.ecr.eu-central-1.amazonaws.com/nextjs-application:latest",
             "cpu": 0,
             "links": [],
             "portMappings": [
@@ -40,7 +40,7 @@
         }
     ],
     "family": "deployment-example-task",
-    "executionRoleArn": "arn:aws:iam::614007627891:role/deployment-example-role",
+    "executionRoleArn": "arn:aws:iam::#change this#:role/deployment-example-role",
     "networkMode": "awsvpc",
     "revision": 7,
     "volumes": [],
@@ -83,6 +83,6 @@
     "cpu": "256",
     "memory": "512",
     "registeredAt": "2023-05-03T12:56:49.661Z",
-    "registeredBy": "arn:aws:iam::614007627891:user/AdminLuka",
+    "registeredBy": "arn:aws:iam::#change this#:user/#change this#",
     "tags": []
 }
