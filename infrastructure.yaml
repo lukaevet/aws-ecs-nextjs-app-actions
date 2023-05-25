@@ -172,7 +172,7 @@ Resources:
             - !Ref PublicSubnet01
           SecurityGroups:
             - !GetAtt ContainerSecurityGroup1.GroupId
-
+            
 Outputs:
 
   VpcId:
