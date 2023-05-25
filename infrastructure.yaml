@@ -144,7 +144,7 @@ Resources:
       ExecutionRoleArn: !Ref ExecutionRole
       ContainerDefinitions:
         - Name: deployment-nextjs-container
-          Image: #change this#.dkr.ecr.eu-central-1.amazonaws.com/nextjs-application:latest
+          Image: 614007627891.dkr.ecr.eu-central-1.amazonaws.com/nextjs-application:latest
           PortMappings:
             - ContainerPort: 3000
           LogConfiguration:
