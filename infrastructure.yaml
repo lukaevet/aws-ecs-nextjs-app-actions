@@ -130,8 +130,8 @@ Resources:
       VpcId: !Ref VPC
       SecurityGroupIngress:
         - IpProtocol: tcp
-          FromPort: 3000
-          ToPort: 3000
+          FromPort: 80
+          ToPort: 80
           CidrIp: 0.0.0.0/0
 
   TaskDefinition:
@@ -146,7 +146,7 @@ Resources:
         - Name: deployment-nextjs-container
           Image: 614007627891.dkr.ecr.eu-central-1.amazonaws.com/nextjs-application:latest
           PortMappings:
-            - ContainerPort: 3000
+            - ContainerPort: 80
           LogConfiguration:
             LogDriver: awslogs
             Options:

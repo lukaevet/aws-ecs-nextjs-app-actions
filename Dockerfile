@@ -20,5 +20,7 @@ COPY . .
 # Build the Next.js app for production.
 RUN npm run build
 
+EXPOSE 80
+
 # Run the web service on container startup.
 CMD [ "npm", "start" ]
