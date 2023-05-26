@@ -3,19 +3,30 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 614007627891.dkr.ecr.eu-central-1.amazonaws.com
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH}
-      - REPO_URL=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
+      - REPO_URL=614007627891.dkr.ecr.eu-central-1.amazonaws.com/nextjs-application
   build:
     commands:
       - docker build -t $REPO_URL:latest .
       - docker tag $REPO_URL:latest $REPO_URL:$IMAGE_TAG
   post_build:
     commands:
+      - printf '{"ImageURI":"%s"}' $REPOSITORY_URI:latest > imageDetail.json
       - docker push $REPO_URL:$IMAGE_TAG
       - docker push $REPO_URL:latest
-      - printf '[{"name":"deployment-example-task","614007627891.dkr.ecr.eu-central-1.amazonaws.com/nextjs-application":"%s"}]' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG > imagedefinitions.json
 
 artifacts:
-  files: imagedefinitions.json
+ files: 
+    - 'image*.json'
+    - 'appspec.yaml'
+    - 'taskdef.json'
+ secondary-artifacts:
+    DefinitionArtifact:
+      files:
+        - appspec.yaml
+        - taskdef.json
+    ImageArtifact:
+      files:
+        - imageDetail.json
