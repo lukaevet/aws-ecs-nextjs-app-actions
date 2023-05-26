@@ -15,7 +15,6 @@ phases:
     commands:
       - printf '{"ImageURI":"%s"}' $REPOSITORY_URI:latest > imageDetail.json
       - docker push $REPO_URL:$IMAGE_TAG
-      - docker push $REPO_URL:latest
 
 artifacts:
  files: 
