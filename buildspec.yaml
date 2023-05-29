@@ -8,7 +8,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t  deployment-nextjs-container:28 .
+      - docker build -t  deployment-nextjs-container:latest .
       - docker tag deployment-nextjs-container:28 614007627891.dkr.ecr.eu-central-1.amazonaws.com/nextjs-application
   post_build:
     commands:
