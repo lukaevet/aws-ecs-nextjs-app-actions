@@ -14,6 +14,11 @@ Parameters:
     Default: 192.168.0.0/18
     Description: CidrBlock for public subnet 01 within the VPC
 
+  PublicSubnet02Block:
+    Type: String
+    Default: 192.168.64.0/18
+    Description: CidrBlock for public subnet 02 within the VPC
+
 Resources:
   VPC:
     Type: AWS::EC2::VPC
@@ -93,10 +98,37 @@ Resources:
       - Key: kubernetes.io/role/elb
         Value: 1
 
+  PublicSubnet02:
+    Type: AWS::EC2::Subnet
+    Metadata:
+      Comment: Subnet 02
+    Properties:
+      MapPublicIpOnLaunch: true
+      AvailabilityZone:
+        Fn::Select:
+        - '1'
+        - Fn::GetAZs:
+            Ref: AWS::Region
+      CidrBlock:
+        Ref: PublicSubnet02Block
+      VpcId:
+        Ref: VPC
+      Tags:
+      - Key: Name
+        Value: !Sub "${AWS::StackName}-PublicSubnet02"
+      - Key: kubernetes.io/role/elb
+        Value: 1
+
   PublicSubnet01RouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref PublicSubnet01
+      RouteTableId: !Ref PublicRouteTable
+
+  PublicSubnet02RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet02
       RouteTableId: !Ref PublicRouteTable
 
   Cluster:
@@ -170,6 +202,7 @@ Resources:
           AssignPublicIp: ENABLED
           Subnets:
             - !Ref PublicSubnet01
+            - !Ref PublicSubnet02
           SecurityGroups:
             - !GetAtt ContainerSecurityGroup1.GroupId
             

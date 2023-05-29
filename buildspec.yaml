@@ -1,16 +1,17 @@
-version: 0.2
-
-phases:
+version: 0.2phases:
   pre_build:
     commands:
-      - aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 614007627891.dkr.ecr.eu-central-1.amazonaws.com
-      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_TAG=${COMMIT_HASH}
-      - REPO_URL=614007627891.dkr.ecr.eu-central-1.amazonaws.com/nextjs-application
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region eu-central-1)
   build:
     commands:
-      - docker build -t $REPO_URL:latest .
-      - docker tag $REPO_URL:latest $REPO_URL:$IMAGE_TAG
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t  deployment-nextjs-container:28 .
+      - docker tag deployment-nextjs-container:28 614007627891.dkr.ecr.eu-central-1.amazonaws.com/nextjs-application
   post_build:
     commands:
-      - docker push $REPO_URL:$IMAGE_TAG
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 614007627891.dkr.ecr.eu-central-1.amazonaws.com/nextjs-application
+      
