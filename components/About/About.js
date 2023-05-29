@@ -14,7 +14,7 @@ export default function About() {
         <div className={styles.content}>
           <Text tag="h2">Hello 👋</Text>
           <Text>
-            I'm Luka, a coffee lover ☕, 20-something-year-old
+            I'm Luka, a tee lover ☕, 20-something-year-old
             <b>DevOps Engineer</b> 💻 
           </Text>
           <Text>🧡
