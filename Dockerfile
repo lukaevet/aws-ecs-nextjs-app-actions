@@ -1,6 +1,6 @@
 # Use the official Node.js 10 image.
 # https://hub.docker.com/_/node
-FROM node:18
+FROM node:16
 
 # Create and change to the app directory.
 WORKDIR /pages
@@ -16,6 +16,8 @@ RUN npm install --only=production
 
 # Copy local code to the container image.
 COPY . .
+
+RUN npx browserslist@latest --update-db -y
 
 # Build the Next.js app for production.
 RUN npm run build
